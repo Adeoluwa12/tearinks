@@ -58,6 +58,10 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
+  // ADD THIS BLOCK BELOW
+  preview: {
+    allowedHosts: ['tearinks.onrender.com']
+  },
   server: {
     port: 5173,
     proxy: {
