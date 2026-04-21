@@ -1,0 +1,240 @@
+.page { padding: 3rem 0 6rem; }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+}
+
+.filterBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+}
+
+.clearFilter {
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.7;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+.clearFilter:hover { opacity: 1; }
+
+.muted {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--fog);
+  padding: 1rem 0;
+}
+
+/* ── Profile ────────────────────────────────────────────────────── */
+.profileHero {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.profileAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--smoke);
+  flex-shrink: 0;
+  border: 1px solid var(--ink-muted);
+}
+.profileAvatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.profileInfo { flex: 1; min-width: 200px; }
+
+.profileName {
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 0.4rem;
+}
+
+.profileBio {
+  font-size: 0.9rem;
+  color: var(--fog);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  max-width: 480px;
+}
+
+.profileStats {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--fog);
+  letter-spacing: 0.03em;
+}
+.profileStats strong {
+  color: var(--parchment);
+  font-weight: 500;
+  margin-right: 0.2rem;
+}
+
+.followBtn {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.45rem 1.2rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--blue-mid);
+  color: var(--blue-bright);
+  background: var(--blue-glow);
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+.followBtn:hover {
+  background: var(--blue-mid);
+  color: var(--ink);
+  box-shadow: 0 2px 12px rgba(91,156,246,0.25);
+}
+.following        { border-color: var(--ink-muted); color: var(--fog); background: none; }
+.following:hover  { border-color: var(--accent); color: var(--accent); background: rgba(200,86,58,0.06); box-shadow: none; }
+
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ink-muted);
+  padding-bottom: 0.75rem;
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Collection ─────────────────────────────────────────────────── */
+.collectionDesc {
+  font-size: 0.9rem;
+  color: var(--fog);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  max-width: 560px;
+}
+
+/* ── Leaderboard ────────────────────────────────────────────────── */
+.rankList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rankRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--ink-soft);
+  transition: background var(--transition);
+}
+.rankRow:first-child { border-top: 1px solid var(--ink-soft); }
+
+.rankNum {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--blue-mid);
+  letter-spacing: 0.06em;
+  min-width: 24px;
+  flex-shrink: 0;
+}
+
+.rankUser {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+  color: var(--smoke);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  transition: color var(--transition);
+}
+.rankUser:hover { color: var(--blue-bright); }
+
+.rankAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: var(--blue-bright);
+  flex-shrink: 0;
+  border: 1px solid var(--blue-border);
+}
+.rankAvatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.rankPoem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  transition: opacity var(--transition);
+}
+.rankPoem:hover { opacity: 0.8; }
+
+.rankPoemTitle {
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+}
+
+.rankPoemAuthor {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--fog);
+}
+
+.rankPoints {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
