@@ -1,0 +1,450 @@
+.page { padding: 3rem 0 6rem; }
+
+.back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--fog);
+  margin-bottom: 2rem;
+  transition: color var(--transition);
+}
+.back:hover { color: var(--blue-bright); }
+
+/* ── Page header ─────────────────────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.2;
+}
+
+.detailHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.detailMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.collectionDesc {
+  font-size: 0.9rem;
+  color: var(--fog);
+  line-height: 1.6;
+  margin-top: 0.5rem;
+  max-width: 520px;
+}
+
+.ownerActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  align-items: flex-start;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.primaryBtn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: var(--blue-bright);
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), box-shadow var(--transition);
+  white-space: nowrap;
+}
+.primaryBtn:hover:not(:disabled) {
+  background: #7ab0f8;
+  box-shadow: 0 2px 12px rgba(91,156,246,0.25);
+}
+.primaryBtn:disabled { opacity: 0.5; cursor: default; }
+
+.ghostBtn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  background: none;
+  border: 1px solid var(--ink-muted);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.ghostBtn:hover { color: var(--parchment); border-color: var(--smoke); }
+
+/* ── Create / Edit form ──────────────────────────────────────────── */
+.createForm {
+  background: var(--ink-soft);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.createForm::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue-mid), transparent);
+}
+
+.formTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 1.25rem;
+}
+
+.field { margin-bottom: 1.1rem; }
+
+.label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fog);
+  margin-bottom: 0.4rem;
+}
+
+.hint {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.65rem;
+  opacity: 0.6;
+}
+
+.input {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius-sm);
+  color: var(--parchment);
+  padding: 0.65rem 0.875rem;
+  font-size: 0.9rem;
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.input::placeholder { color: var(--fog); opacity: 0.5; }
+.input:focus {
+  border-color: var(--blue-mid);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--smoke);
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--blue-bright);
+  cursor: pointer;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.error {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #f08070;
+  padding: 0.5rem 0.75rem;
+  background: rgba(200, 86, 58, 0.08);
+  border: 1px solid rgba(200, 86, 58, 0.2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+}
+
+/* ── Collection grid ─────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.collectionCard {
+  background: var(--ink-soft);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.collectionCard:hover {
+  border-color: var(--blue-border);
+  box-shadow: 0 4px 20px rgba(10,13,18,0.5);
+}
+
+.cardLink {
+  display: block;
+  padding: 1.25rem 1.25rem 0.75rem;
+  flex: 1;
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.25;
+  flex: 1;
+  transition: color var(--transition);
+}
+.collectionCard:hover .cardTitle { color: var(--blue-bright); }
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.badgePublic  { color: var(--teal);   background: rgba(42,157,143,0.1); border: 1px solid rgba(42,157,143,0.25); }
+.badgePrivate { color: var(--fog);    background: var(--ink-muted); border: 1px solid var(--ink-muted); }
+
+.cardDesc {
+  font-size: 0.82rem;
+  color: var(--fog);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardMeta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--fog);
+  letter-spacing: 0.04em;
+  padding-bottom: 0.5rem;
+}
+
+.cardActions {
+  display: flex;
+  border-top: 1px solid var(--ink-muted);
+}
+
+.cardActionBtn {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--fog);
+  padding: 0.6rem;
+  text-align: center;
+  background: none;
+  border: none;
+  border-right: 1px solid var(--ink-muted);
+  transition: color var(--transition), background var(--transition);
+  cursor: pointer;
+}
+.cardActionBtn:last-child { border-right: none; }
+.cardActionBtn:hover      { color: var(--parchment); background: var(--ink-muted); }
+.cardActionDanger:hover   { color: var(--accent) !important; background: rgba(200,86,58,0.06) !important; }
+
+/* ── Add poem panel ──────────────────────────────────────────────── */
+.addPoemPanel {
+  background: var(--ink-soft);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.panelTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.addPoemList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.addPoemRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background var(--transition), border-color var(--transition);
+}
+.addPoemRow:hover      { background: var(--ink-muted); }
+.addPoemRowIn          { background: var(--blue-glow); border-color: var(--blue-border); }
+
+.addPoemInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.addPoemTitle {
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--parchment);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.addPoemType {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--fog);
+  letter-spacing: 0.05em;
+}
+
+.addBtn {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--blue-bright);
+  border: 1px solid var(--blue-border);
+  background: var(--blue-glow);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.addBtn:hover { background: var(--blue-mid); color: var(--ink); }
+
+.removeBtn {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  border: 1px solid rgba(200,86,58,0.25);
+  background: rgba(200,86,58,0.06);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.removeBtn:hover { background: rgba(200,86,58,0.15); }
+
+/* ── Poem list inside collection ─────────────────────────────────── */
+.poemList { display: flex; flex-direction: column; }
+
+.poemEntry {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.poemIndex {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-mid);
+  letter-spacing: 0.06em;
+  padding-top: 2rem;
+  flex-shrink: 0;
+  min-width: 24px;
+}
+
+.poemContent { flex: 1; min-width: 0; }
+
+.removePoemBtn {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--fog);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-top: 1.9rem;
+  flex-shrink: 0;
+  transition: color var(--transition);
+  opacity: 0;
+}
+.poemEntry:hover .removePoemBtn { opacity: 1; }
+.removePoemBtn:hover { color: var(--accent); }
+
+/* ── Empty state ─────────────────────────────────────────────────── */
+.emptyState {
+  padding: 4rem 0 2rem;
+  text-align: center;
+}
+
+.emptyTitle {
+  font-size: 1.8rem;
+  color: var(--parchment);
+  margin-bottom: 0.5rem;
+}
+
+/* ── Misc ────────────────────────────────────────────────────────── */
+.muted {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--fog);
+  padding: 0.5rem 0;
+}
+
+.linkBlue {
+  color: var(--blue-bright);
+  transition: color var(--transition);
+}
+.linkBlue:hover { color: var(--parchment); }
