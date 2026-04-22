@@ -9,24 +9,19 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 13, 18, 0.92);
+  background: rgba(10, 13, 18, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--ink-muted);
 }
 
-/* Subtle blue line at the very top */
 .header::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg,
-    transparent 0%,
-    var(--blue-deep) 20%,
-    var(--blue-mid) 50%,
-    var(--blue-deep) 80%,
-    transparent 100%
+    transparent 0%, var(--blue-deep) 20%, var(--blue-mid) 50%, var(--blue-deep) 80%, transparent 100%
   );
 }
 
@@ -37,7 +32,7 @@
   height: 56px;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 /* ── Logo ────────────────────────────────────────────────────────── */
@@ -54,7 +49,7 @@
 }
 .logo:hover .logoText { color: var(--blue-bright); }
 
-/* ── Nav links ───────────────────────────────────────────────────── */
+/* ── Desktop nav links ───────────────────────────────────────────── */
 .navLinks {
   display: flex;
   gap: 0.15rem;
@@ -71,16 +66,14 @@
   letter-spacing: 0.04em;
   border: 1px solid transparent;
 }
-
 .link:hover { color: var(--parchment); }
-
 .active {
   color: var(--blue-bright) !important;
   background: var(--blue-glow);
   border-color: var(--blue-border) !important;
 }
 
-/* ── Actions ─────────────────────────────────────────────────────── */
+/* ── Desktop actions ─────────────────────────────────────────────── */
 .navActions {
   display: flex;
   align-items: center;
@@ -141,28 +134,22 @@
 }
 .logoutBtn:hover { color: var(--accent); border-color: var(--accent); }
 
-/* ── Mobile: hide desktop links, show hamburger ──────────────────── */
-@media (max-width: 600px) {
-  .navLinks  { display: none; }
-  .navActions { display: none; }
-  .hamburger { display: flex; }
-
-  .nav { gap: 0; }
-  .logo { flex: 1; }
-}
-
-/* ── Hamburger button ─────────────────────────────────────────────── */
+/* ── Hamburger ───────────────────────────────────────────────────── */
+/* Hidden on desktop, revealed by media query on mobile */
 .hamburger {
-  display: none; /* shown via media query above */
+  display: none;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
-  padding: 6px;
-  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   background: none;
   border: none;
   cursor: pointer;
   border-radius: var(--radius-sm);
+  margin-left: auto;
   transition: background var(--transition);
 }
 .hamburger:hover { background: var(--ink-muted); }
@@ -170,24 +157,32 @@
 .bar {
   display: block;
   width: 22px;
-  height: 1.5px;
+  height: 2px;
   background: var(--smoke);
   border-radius: 2px;
-  transition: transform 0.25s ease, opacity 0.2s ease, width 0.2s ease;
+  transition: transform 0.25s ease, opacity 0.2s ease;
   transform-origin: center;
 }
 
-/* Animated X state */
-.barTop { transform: translateY(6.5px) rotate(45deg);  background: var(--parchment); }
-.barMid { opacity: 0; width: 0; }
-.barBot { transform: translateY(-6.5px) rotate(-45deg); background: var(--parchment); }
+.barTop { transform: translateY(7px) rotate(45deg);  background: var(--parchment); }
+.barMid { opacity: 0; transform: scaleX(0); }
+.barBot { transform: translateY(-7px) rotate(-45deg); background: var(--parchment); }
 
-/* ── Mobile drawer ────────────────────────────────────────────────── */
+/* ── Mobile breakpoint ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .navLinks   { display: none !important; }
+  .navActions { display: none !important; }
+  .hamburger  { display: flex !important; }
+  .nav        { gap: 0; }
+  .logo       { flex: 1; }
+}
+
+/* ── Mobile drawer ───────────────────────────────────────────────── */
 .mobileDrawer {
   position: fixed;
-  top: 56px; /* height of header */
+  top: 56px;
   right: 0;
-  width: min(320px, 88vw);
+  width: min(300px, 85vw);
   height: calc(100dvh - 56px);
   background: var(--ink-soft);
   border-left: 1px solid var(--blue-border);
@@ -195,13 +190,13 @@
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
 }
 
-.drawerOpen { transform: translateX(0); }
+.drawerOpen { transform: translateX(0) !important; }
 
 .drawerInner {
-  padding: 1.5rem 1.25rem;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -210,7 +205,7 @@
 .mobileSection {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
 }
 
 .drawerDivider {
@@ -219,16 +214,16 @@
   margin: 1rem 0;
 }
 
-/* Mobile nav link */
+/* Mobile nav link base */
 .mobileLink {
   display: flex;
   align-items: center;
   width: 100%;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
   color: var(--fog);
-  padding: 0.75rem 0.85rem;
+  padding: 0.8rem 0.9rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: none;
@@ -255,26 +250,25 @@
 .mobileLinkBlue:hover {
   background: var(--blue-mid);
   color: var(--ink);
-  border-color: var(--blue-mid);
 }
 
 .mobileLinkDanger:hover {
   color: var(--accent) !important;
-  background: rgba(200, 86, 58, 0.06) !important;
-  border-color: rgba(200, 86, 58, 0.15) !important;
+  background: rgba(200, 86, 58, 0.08) !important;
+  border-color: rgba(200, 86, 58, 0.2) !important;
 }
 
-/* Mobile user row */
+/* User card in drawer */
 .mobileUserRow {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 0.85rem;
+  padding: 0.85rem 0.9rem;
   border-radius: var(--radius-sm);
-  margin-bottom: 0.25rem;
-  transition: background var(--transition);
+  margin-bottom: 0.5rem;
   border: 1px solid var(--blue-border);
   background: var(--blue-glow);
+  transition: background var(--transition);
 }
 .mobileUserRow:hover { background: var(--ink-muted); }
 
@@ -299,7 +293,6 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--parchment);
-  letter-spacing: 0.03em;
 }
 
 .mobileUserSub {
@@ -309,29 +302,27 @@
   margin-top: 0.1rem;
 }
 
-/* ── Backdrop ─────────────────────────────────────────────────────── */
+/* ── Backdrop ────────────────────────────────────────────────────── */
 .backdrop {
   position: fixed;
   inset: 0;
   z-index: 98;
-  background: rgba(10, 13, 18, 0.6);
+  background: rgba(10, 13, 18, 0.65);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   animation: fadeIn 0.2s ease;
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* ── Main ────────────────────────────────────────────────────────── */
+/* ── Main + Footer ───────────────────────────────────────────────── */
 .main { flex: 1; }
 
-/* ── Footer ──────────────────────────────────────────────────────── */
 .footer {
   border-top: 1px solid var(--ink-muted);
   padding: 2rem 1.25rem;
   text-align: center;
   position: relative;
 }
-
 .footer::before {
   content: '';
   position: absolute;
@@ -339,14 +330,13 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--blue-deep), transparent);
 }
-
 .footerText {
   font-size: 0.8rem;
   color: var(--fog);
   letter-spacing: 0.03em;
 }
 
-/* ── PWA install prompt ───────────────────────────────────────────── */
+/* ── PWA install banner ──────────────────────────────────────────── */
 .installBanner {
   position: fixed;
   bottom: 1rem;
@@ -367,7 +357,6 @@
   white-space: nowrap;
   animation: slideUp 0.3s ease;
 }
-
 @keyframes slideUp {
   from { opacity: 0; transform: translateX(-50%) translateY(12px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -388,11 +377,11 @@
 
 .dismissBtn {
   color: var(--fog);
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1;
-  transition: color var(--transition);
   background: none;
   border: none;
   cursor: pointer;
+  transition: color var(--transition);
 }
 .dismissBtn:hover { color: var(--parchment); }

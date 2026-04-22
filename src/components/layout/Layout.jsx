@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
 import styles from './Layout.module.css';
@@ -6,9 +6,19 @@ import styles from './Layout.module.css';
 export default function Layout() {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
+  const location = useLocation();
   const [installPrompt, setInstallPrompt] = useState(null);
-  const [showBanner,    setShowBanner]    = useState(false);
-  const [menuOpen,      setMenuOpen]      = useState(false);
+  const [showBanner, setShowBanner] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close drawer on route change
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
+  // Lock body scroll when drawer open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -19,9 +29,6 @@ export default function Layout() {
     window.addEventListener('beforeinstallprompt', handler);
     return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
-
-  // Close menu on route change
-  useEffect(() => { setMenuOpen(false); }, []);
 
   const handleInstall = async () => {
     if (!installPrompt) return;
@@ -37,20 +44,18 @@ export default function Layout() {
   const mobileNavCls = ({ isActive }) =>
     isActive ? `${styles.mobileLink} ${styles.mobileLinkActive}` : styles.mobileLink;
 
-  const closeMenu = () => setMenuOpen(false);
-
   return (
     <div className={styles.root}>
       <header className={styles.header}>
         <nav className={styles.nav}>
-          <NavLink to="/" className={styles.logo} onClick={closeMenu}>
+          <NavLink to="/" className={styles.logo}>
             <span className={styles.logoText}>Tearinks</span>
           </NavLink>
 
-          {/* Desktop nav links */}
+          {/* Desktop nav */}
           <div className={styles.navLinks}>
-            <NavLink to="/"            className={navCls} end>Feed</NavLink>
-            <NavLink to="/explore"     className={navCls}>Explore</NavLink>
+            <NavLink to="/" className={navCls} end>Feed</NavLink>
+            <NavLink to="/explore" className={navCls}>Explore</NavLink>
             <NavLink to="/leaderboard" className={navCls}>Ranks</NavLink>
             {user && <NavLink to="/collections" className={navCls}>Collections</NavLink>}
           </div>
@@ -72,7 +77,7 @@ export default function Layout() {
               </>
             ) : (
               <>
-                <NavLink to="/login"    className={styles.link}>Sign in</NavLink>
+                <NavLink to="/login" className={styles.link}>Sign in</NavLink>
                 <NavLink to="/register" className={styles.createBtn}>Join</NavLink>
               </>
             )}
@@ -92,31 +97,27 @@ export default function Layout() {
         </nav>
       </header>
 
+      {/* Backdrop */}
+      {menuOpen && (
+        <div className={styles.backdrop} onClick={() => setMenuOpen(false)} aria-hidden="true" />
+      )}
+
       {/* Mobile drawer */}
-      <div
-        className={`${styles.mobileDrawer} ${menuOpen ? styles.drawerOpen : ''}`}
-        aria-hidden={!menuOpen}
-      >
+      <div className={`${styles.mobileDrawer} ${menuOpen ? styles.drawerOpen : ''}`}>
         <div className={styles.drawerInner}>
-          {/* Primary nav links */}
           <div className={styles.mobileSection}>
-            <NavLink to="/"            className={mobileNavCls} end    onClick={closeMenu}>Feed</NavLink>
-            <NavLink to="/explore"     className={mobileNavCls}        onClick={closeMenu}>Explore</NavLink>
-            <NavLink to="/leaderboard" className={mobileNavCls}        onClick={closeMenu}>Ranks</NavLink>
-            {user && <NavLink to="/collections" className={mobileNavCls} onClick={closeMenu}>Collections</NavLink>}
+            <NavLink to="/" className={mobileNavCls} end>Feed</NavLink>
+            <NavLink to="/explore" className={mobileNavCls}>Explore</NavLink>
+            <NavLink to="/leaderboard" className={mobileNavCls}>Ranks</NavLink>
+            {user && <NavLink to="/collections" className={mobileNavCls}>Collections</NavLink>}
           </div>
 
           <div className={styles.drawerDivider} />
 
-          {/* Auth actions */}
           <div className={styles.mobileSection}>
             {user ? (
               <>
-                <NavLink
-                  to={`/profile/${user.username}`}
-                  className={styles.mobileUserRow}
-                  onClick={closeMenu}
-                >
+                <NavLink to={`/profile/${user.username}`} className={styles.mobileUserRow}>
                   <div className={styles.mobileAvatar}>
                     {user.avatar
                       ? <img src={user.avatar} alt={user.username} />
@@ -128,35 +129,24 @@ export default function Layout() {
                     <p className={styles.mobileUserSub}>View profile</p>
                   </div>
                 </NavLink>
-
-                <button
-                  className={styles.mobileLink}
-                  onClick={() => { navigate('/create'); closeMenu(); }}
-                >
+                <button className={styles.mobileLink} onClick={() => navigate('/create')}>
                   + Write a poem
                 </button>
-
-                <button
-                  className={`${styles.mobileLink} ${styles.mobileLinkDanger}`}
-                  onClick={() => { logout(); closeMenu(); }}
-                >
+                <button className={`${styles.mobileLink} ${styles.mobileLinkDanger}`} onClick={logout}>
                   Sign out
                 </button>
               </>
             ) : (
               <>
-                <NavLink to="/login"    className={mobileNavCls} onClick={closeMenu}>Sign in</NavLink>
-                <NavLink to="/register" className={`${styles.mobileLink} ${styles.mobileLinkBlue}`} onClick={closeMenu}>Join Tearinks</NavLink>
+                <NavLink to="/login" className={mobileNavCls}>Sign in</NavLink>
+                <NavLink to="/register" className={`${styles.mobileLink} ${styles.mobileLinkBlue}`}>
+                  Join Tearinks
+                </NavLink>
               </>
             )}
           </div>
         </div>
       </div>
-
-      {/* Backdrop */}
-      {menuOpen && (
-        <div className={styles.backdrop} onClick={closeMenu} aria-hidden="true" />
-      )}
 
       <main className={styles.main}>
         <Outlet />
